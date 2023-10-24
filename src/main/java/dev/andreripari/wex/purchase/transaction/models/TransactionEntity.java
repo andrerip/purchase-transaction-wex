@@ -1,12 +1,12 @@
-package dev.andreripari.wex.purchase.transaction.model;
+package dev.andreripari.wex.purchase.transaction.models;
 
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Entity
-public class Transaction {
+@Entity(name = "transaction")
+public class TransactionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +21,11 @@ public class Transaction {
     @Column(precision = 2)
     private Float amount;
 
-    public Transaction() {
+    public TransactionEntity() {
 
     }
 
-    public Transaction(String description, LocalDate date, Float amount) {
+    public TransactionEntity(String description, LocalDate date, Float amount) {
         this.description = description;
         this.date = date;
         this.amount = amount;
