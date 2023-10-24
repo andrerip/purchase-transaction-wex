@@ -13,7 +13,7 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - networkWex
+      - spring-cloud-network
 
   adminer:
     image: adminer:4
@@ -22,12 +22,10 @@ services:
     ports:
       - "8081:8080"
     networks:
-      - networkWex
+      - spring-cloud-network
 
   spring-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: purchase-transaction-wex:latest
     container_name: spring_app_container
     restart: always
     ports:
@@ -35,7 +33,8 @@ services:
     depends_on:
       - db
     networks:
-      - networkWex
+      - spring-cloud-network
 
 networks:
-  networkWex:
+  spring-cloud-network:
+    driver: bridge
