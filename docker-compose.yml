@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: wex
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: 12345
+    ports:
+      - "3306:3306"
+    networks:
+      - networkWex
+
+  adminer:
+    image: adminer:4
+    container_name: adminer_container
+    restart: always
+    ports:
+      - "8081:8080"
+    networks:
+      - networkWex
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring_app_container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - networkWex
+
+networks:
+  networkWex:
